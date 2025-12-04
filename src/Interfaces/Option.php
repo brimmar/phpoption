@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Brimmar\PhpOption\Interfaces;
 
+use Brimmar\PhpOption\None;
+use Brimmar\PhpOption\Some;
 use Iterator;
 
 /**
@@ -24,7 +26,7 @@ interface Option
     public function isSomeAnd(callable $fn): bool;
 
     /**
-     * @phpstan-assert-if-true None $this
+     * @phpstan-assert-if-true None<T> $this
      */
     public function isNone(): bool;
 
@@ -45,7 +47,7 @@ interface Option
     public function expect(string $msg): mixed;
 
     /**
-     * @return T
+     * @return Option<T>
      */
     public function flatten(): Option;
 
@@ -93,6 +95,7 @@ interface Option
 
     /**
      * @param  callable(T): void  $fn
+     * @return Option<T>
      */
     public function inspect(callable $fn): self;
 
@@ -100,7 +103,7 @@ interface Option
      * @template E
      *
      * @param  E  $error
-     * @param  class-string<E>  $className
+     * @param  string|null  $className
      */
     public function okOr(mixed $error, ?string $className = null): mixed;
 
@@ -108,8 +111,8 @@ interface Option
      * @template E
      *
      * @param  callable(): E  $error
-     * @param  class-string<E>  $className
-     * @return E
+     * @param  string|null  $className
+     * @return mixed
      */
     public function okOrElse(callable $error, ?string $className = null): mixed;
 
@@ -130,27 +133,20 @@ interface Option
     public function andThen(callable $fn): Option;
 
     /**
-     * @template U
-     *
-     * @param  Option<U>  $opt
-     * @return Option<U>
+     * @param  Option<T>  $opt
+     * @return Option<T>
      */
     public function or(Option $opt): Option;
 
     /**
-     * @template U
-     *
-     * @param  callable(): Option<U>  $fn
-     * @return Option<U>
+     * @param  callable(): Option<T>  $fn
+     * @return Option<T>
      */
     public function orElse(callable $fn): Option;
 
     /**
-     * @template U
-     * @template E
-     *
-     * @param  class-string<U>  $okClassName
-     * @param  class-string<E>  $errClassName
+     * @param  string|null  $okClassName
+     * @param  string|null  $errClassName
      */
     public function transpose(?string $okClassName = null, ?string $errClassName = null): mixed;
 
@@ -179,7 +175,7 @@ interface Option
     public function zipWith(Option $other, callable $fn): Option;
 
     /**
-     * @return array{Option<T>, Option<U>}
+     * @return array{Option<mixed>, Option<mixed>}
      */
     public function unzip(): array;
 

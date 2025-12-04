@@ -20,14 +20,26 @@ function none(): Option
 // Minimal implementation of Ok and Err classes for testing
 class Ok
 {
-    public function __construct(private $value) {}
-    public function unwrap() { return $this->value; }
+    public function __construct(private $value)
+    {
+    }
+
+    public function unwrap()
+    {
+        return $this->value;
+    }
 }
 
 class Err
 {
-    public function __construct(private $error) {}
-    public function unwrapErr() { return $this->error; }
+    public function __construct(private $error)
+    {
+    }
+
+    public function unwrapErr()
+    {
+        return $this->error;
+    }
 }
 
 test('isSome returns true for Some and false for None', function () {
@@ -56,8 +68,8 @@ test('unwrapOr returns the value for Some and default for None', function () {
 });
 
 test('unwrapOrElse returns the value for Some and calls the function for None', function () {
-    expect(some(42)->unwrapOrElse(fn() => 0))->toBe(42);
-    expect(none()->unwrapOrElse(fn() => 0))->toBe(0);
+    expect(some(42)->unwrapOrElse(fn () => 0))->toBe(42);
+    expect(none()->unwrapOrElse(fn () => 0))->toBe(0);
 });
 
 test('map applies the function for Some and returns None for None', function () {

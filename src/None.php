@@ -46,6 +46,9 @@ final class None implements Option
         throw new \RuntimeException($msg);
     }
 
+    /**
+     * @return Option<T>
+     */
     public function flatten(): Option
     {
         return $this;
@@ -61,9 +64,16 @@ final class None implements Option
         return $default();
     }
 
+    /**
+     * @template U
+     *
+     * @param  callable(T): U  $fn
+     * @return Option<U>
+     */
     public function map(callable $fn): Option
     {
-        return $this;
+        /** @var None<U> */
+        return new None();
     }
 
     public function mapOr(mixed $default, callable $fn): mixed
@@ -76,6 +86,9 @@ final class None implements Option
         return $default();
     }
 
+    /**
+     * @return Option<T>
+     */
     public function inspect(callable $fn): Option
     {
         return $this;
@@ -84,40 +97,64 @@ final class None implements Option
     public function okOr(mixed $error, ?string $errClassName = '\Brimmar\PhpResult\Err'): mixed
     {
         try {
+            /** @var class-string $errClassName */
             $err = new $errClassName($error);
 
             return $err;
         } catch (ReflectionException $e) {
-            return new None;
+            return new None();
         }
     }
 
     public function okOrElse(callable $error, ?string $errClassName = '\Brimmar\PhpResult\Err'): mixed
     {
         try {
+            /** @var class-string $errClassName */
             $err = new $errClassName($error());
 
             return $err;
         } catch (ReflectionException $e) {
-            return new None;
+            return new None();
         }
     }
 
+    /**
+     * @template U
+     *
+     * @param  Option<U>  $opt
+     * @return Option<U>
+     */
     public function and(Option $opt): Option
     {
-        return $this;
+        /** @var None<U> */
+        return new None();
     }
 
-    public function andThen(callable $fn): self
+    /**
+     * @template U
+     *
+     * @param  callable(T): Option<U>  $fn
+     * @return Option<U>
+     */
+    public function andThen(callable $fn): Option
     {
-        return $this;
+        /** @var None<U> */
+        return new None();
     }
 
+    /**
+     * @param  Option<T>  $opt
+     * @return Option<T>
+     */
     public function or(Option $opt): Option
     {
         return $opt;
     }
 
+    /**
+     * @param  callable(): Option<T>  $fn
+     * @return Option<T>
+     */
     public function orElse(callable $fn): Option
     {
         return $fn();
@@ -126,36 +163,60 @@ final class None implements Option
     public function transpose(?string $okClassName = '\Brimmar\PhpResult\Ok', ?string $errClassName = '\Brimmar\PhpResult\Err'): mixed
     {
         try {
-            $ok = new $okClassName(new None);
+            /** @var class-string $okClassName */
+            $ok = new $okClassName(new None());
 
             return $ok;
         } catch (ReflectionException $e) {
-            return new None;
+            return new None();
         }
     }
 
+    /**
+     * @return Option<T>
+     */
     public function xor(Option $opt): Option
     {
         if ($opt instanceof Some) {
             return $opt;
         }
 
-        return new None;
+        /** @var None<T> */
+        return new None();
     }
 
+    /**
+     * @template U
+     *
+     * @param  Option<U>  $other
+     * @return Option<array{T, U}>
+     */
     public function zip(Option $other): Option
     {
-        return new None;
+        /** @var None<array{T, U}> */
+        return new None();
     }
 
+    /**
+     * @template U
+     * @template R
+     *
+     * @param  Option<U>  $other
+     * @param  callable(T, U): R  $fn
+     * @return Option<R>
+     */
     public function zipWith(Option $other, callable $fn): Option
     {
-        return new None;
+        /** @var None<R> */
+        return new None();
     }
 
+    /**
+     * @return array{Option<mixed>, Option<mixed>}
+     */
     public function unzip(): array
     {
-        return [new None, new None];
+        return [new None(), new None()];
     }
 
     public function match(callable $Some, callable $None): mixed
@@ -163,6 +224,9 @@ final class None implements Option
         return $None();
     }
 
+    /**
+     * @return Option<T>
+     */
     public function filter(callable $predicate): Option
     {
         return $this;
