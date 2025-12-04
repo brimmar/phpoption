@@ -1,5 +1,11 @@
 # PHP Option Type Documentation
 
+[![Tests](https://github.com/brimmar/phpoption/actions/workflows/tests.yml/badge.svg)](https://github.com/brimmar/phpoption/actions/workflows/tests.yml)
+[![Static Analysis](https://github.com/brimmar/phpoption/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/brimmar/phpoption/actions/workflows/static-analysis.yml)
+[![License](https://img.shields.io/packagist/l/brimmar/phpoption)](https://packagist.org/packages/brimmar/phpoption)
+[![Latest Stable Version](https://img.shields.io/packagist/v/brimmar/phpoption)](https://packagist.org/packages/brimmar/phpoption)
+[![Total Downloads](https://img.shields.io/packagist/dt/brimmar/phpoption)](https://packagist.org/packages/brimmar/phpoption)
+
 This documentation covers the implementation of a Rust-like Option Type for PHP. The Option type is used for representing optional values. It has two variants: `Some`, representing the presence of a value, and `None`, representing the absence of a value.
 
 ## Table of Contents
