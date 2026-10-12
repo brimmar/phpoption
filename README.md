@@ -1,5 +1,9 @@
 # PHP Option Type Documentation
 
+**Deprecated.** This repository is archived. Option and Result now live together in [brimmar/phpresult](https://github.com/brimmar/phpresult). Install `brimmar/phpresult` on PHP 8.5. `okOr`, `okOrElse`, and `transpose` return a real `Result`, and `Result::ok`, `Result::err`, and `Result::transpose` return a real `Option`. The class-name arguments are gone. There is no `Either` type. Effect 4 uses `Result` for this same job.
+
+The notes below describe the last 1.x release of this repository.
+
 [![Tests](https://github.com/brimmar/phpoption/actions/workflows/tests.yml/badge.svg)](https://github.com/brimmar/phpoption/actions/workflows/tests.yml)
 [![Static Analysis](https://github.com/brimmar/phpoption/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/brimmar/phpoption/actions/workflows/static-analysis.yml)
 [![License](https://img.shields.io/packagist/l/brimmar/phpoption)](https://packagist.org/packages/brimmar/phpoption)

@@ -1,8 +1,9 @@
 {
   "name": "brimmar/phpoption",
-  "description": "Rust-like Option Type implementation for PHP",
+  "description": "Deprecated. Use brimmar/phpresult, which now includes Option and Result.",
   "type": "library",
   "license": "MIT",
+  "abandoned": "brimmar/phpresult",
   "keywords": [
     "php",
     "option",
